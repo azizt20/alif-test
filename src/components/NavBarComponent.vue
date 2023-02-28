@@ -29,6 +29,7 @@
           v-for="item in navigation"
           :key="item.name"
           :to="item.href"
+          :class="{ 'text-[#39B980]': $route.fullPath == item.href }"
           class="text-sm font-semibold leading-6 text-gray-900 hover:text-[#39B980]"
           >{{ item.name }}
         </router-link>
@@ -76,6 +77,7 @@
                 v-for="item in navigation"
                 :key="item.name"
                 :to="item.href"
+                :class="{ 'text-[#39B980]': $route.fullPath == item.href }"
                 class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:text-[#39B980] hover:bg-gray-50"
                 >{{ item.name }}
               </router-link>
