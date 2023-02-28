@@ -1,9 +1,13 @@
 <template>
   <article
+    :title="updatedDate"
     class="flex max-w-xl flex-col items-start justify-between p-3 rounded-lg border bg-white shadow-lg"
   >
     <div class="flex items-center gap-x-4 text-xs">
-      <time :datetime="datetime" class="text-gray-500">{{ formatedDate }}</time>
+      <time :datetime="created_at" class="text-gray-500">{{
+        formatedDate
+      }}</time>
+
       <span
         v-for="cat in category"
         :key="cat.id"
@@ -87,11 +91,13 @@ export default {
     citation: {
       type: String,
     },
-    datetime: {
+    created_at: {
       type: String,
-      default: function () {
-        return new Date();
-      },
+      default: () => new Date(),
+    },
+    updated_at: {
+      type: String,
+      default: () => new Date(),
     },
     category: {
       type: Object,
@@ -109,7 +115,15 @@ export default {
   },
   computed: {
     formatedDate() {
-      return this.datetime.split("T")[0];
+      return this.created_at.split("T")[0];
+    },
+    updatedDate() {
+      return (
+        "Обновлен " +
+        this.updated_at.split("T")[0] +
+        " " +
+        this.updated_at.split("T")[1].split(".")[0]
+      );
     },
     firstLetter() {
       return this.author?.name?.slice(0, 1);

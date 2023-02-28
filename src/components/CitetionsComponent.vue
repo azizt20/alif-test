@@ -6,7 +6,7 @@
         <input
           v-model="search"
           type="text"
-          class="rounded  mt-1 focus:border-[#39B980] focus:ring-[#39B980]"
+          class="rounded mt-1 focus:border-[#39B980] focus:ring-[#39B980]"
         />
       </label>
 
@@ -56,28 +56,28 @@
         </select>
       </label>
 
-     <div class="flex w-full h-full items-end lg:justify-center">
-      <button
-        class="mb-2 pr-2"
-        title="Сбросить фильтры"
-        @click="deleteFiltes()"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
+      <div class="flex w-full h-full items-end lg:justify-center">
+        <button
+          class="mb-2 pr-2"
+          title="Сбросить фильтры"
+          @click="deleteFiltes()"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
-          />
-        </svg>
-      </button>
-     </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
     <div
       name="list"
@@ -92,8 +92,8 @@
           v-for="citation in filteredCitations"
           :key="citation.id"
           :id="citation.id"
-          :datetime="citation?.created_at"
-          :date="citation?.created_at"
+          :created_at="citation?.created_at"
+          :updated_at="citation?.created_at"
           :citation="citation?.citation"
           :author="citation?.author"
           :category="citation?.category"
@@ -157,10 +157,11 @@ export default {
     }),
 
     filteredCitations() {
-      let citationslist = this.citations;
       return this.sort
-        ? citationslist.sort((a, b) => (a[this.sort] > b[this.sort] ? 1 : -1))
-        : citationslist;
+        ? this.citations
+            .slice()
+            .sort((a, b) => (a[this.sort] < b[this.sort] ? 1 : -1))
+        : this.citations;
     },
   },
 };
